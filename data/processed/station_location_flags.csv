@@ -1,0 +1,2 @@
+station_id,latitude,longitude,observations,endpoint_observations,coordinate_pairs,modal_share,max_displacement_m,location_review_flag,GEOID,borough,tract_matches
+5348.06,40.71797941,-73.96427449,383,389,2,0.9845758355,291.2005725,True,36047055500,Brooklyn,1

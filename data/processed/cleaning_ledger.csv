@@ -1,0 +1,30 @@
+stage,step,before,affected,after,action,reason
+trips,missing_ride_id,5287447,0,5287447,exclude,Cannot establish a unique trip for deduplication
+trips,duplicate_ride_id,5287447,0,5287447,exclude,"One trip per ride ID, first occurrence in sorted archive/file order"
+trips,invalid_start_time,5287447,0,5287447,exclude,Cannot assign the trip to September or a day
+trips,outside_september,5287447,931,5286516,exclude,"Start must be September 1–30, 2025, in the published local timestamp"
+tracts,outside_nyc_counties,5411,3084,2327,exclude,Five NYC counties define the study area
+tracts,repair_invalid_geometry,2327,0,2327,repair,Valid polygons are required for spatial predicates
+tracts,unusable_geometry,2327,0,2327,exclude,No usable polygon after repair
+acs,b19013_outside_nyc_tracts,543579,541252,2327,exclude,Summary files contain all published national geographies; retain NYC tracts only
+acs,income_unavailable,2327,128,2327,set_missing,Unavailable/suppressed ACS tokens are not zero
+acs,income_moe_unavailable,2327,141,2327,set_missing,Unavailable/suppressed ACS tokens are not zero
+acs,b08201_outside_nyc_tracts,299181,296854,2327,exclude,Summary files contain all published national geographies; retain NYC tracts only
+acs,households_unavailable,2327,0,2327,set_missing,Unavailable/suppressed ACS tokens are not zero
+acs,households_moe_unavailable,2327,0,2327,set_missing,Unavailable/suppressed ACS tokens are not zero
+acs,no_vehicle_households_unavailable,2327,0,2327,set_missing,Unavailable/suppressed ACS tokens are not zero
+acs,no_vehicle_households_moe_unavailable,2327,0,2327,set_missing,Unavailable/suppressed ACS tokens are not zero
+acs,b01003_outside_nyc_tracts,616690,614363,2327,exclude,Summary files contain all published national geographies; retain NYC tracts only
+acs,population_unavailable,2327,0,2327,set_missing,Unavailable/suppressed ACS tokens are not zero
+acs,population_moe_unavailable,2327,0,2327,set_missing,Unavailable/suppressed ACS tokens are not zero
+acs,invalid_no_vehicle_share,2327,0,2327,set_missing,Share must be between zero and one
+residential_comparison,nonpositive_or_missing_households,2327,96,2231,exclude_from_comparison,"Residential rate comparisons need positive households, population, and land area; tract stays mapped"
+residential_comparison,nonpositive_or_missing_population,2231,0,2231,exclude_from_comparison,"Residential rate comparisons need positive households, population, and land area; tract stays mapped"
+residential_comparison,nonpositive_or_missing_land_km2,2231,0,2231,exclude_from_comparison,"Residential rate comparisons need positive households, population, and land area; tract stays mapped"
+endpoint_audit,missing_start_id,5286516,2118,5286516,flag_endpoint,Does not itself remove the trip; canonical station locations can recover starts with valid station IDs
+endpoint_audit,invalid_start_coordinates,5286516,2118,5286516,flag_endpoint,Does not itself remove the trip; canonical station locations can recover starts with valid station IDs
+endpoint_audit,missing_end_id,5286516,12865,5286516,flag_endpoint,Does not itself remove the trip; canonical station locations can recover starts with valid station IDs
+endpoint_audit,invalid_end_coordinates,5286516,12854,5286516,flag_endpoint,Does not itself remove the trip; canonical station locations can recover starts with valid station IDs
+spatial_join,station_outside_or_unmatched_nyc,2269,57,2212,exclude_from_nyc,Station point does not intersect a NYC tract; no nearest-tract snapping
+demographic_comparison,missing_income,2231,32,2199,exclude_from_comparison,Unavailable grouping variable; retain tract for map and other comparisons
+demographic_comparison,missing_no_vehicle_share,2231,0,2231,exclude_from_comparison,Unavailable grouping variable; retain tract for map and other comparisons

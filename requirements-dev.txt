@@ -1,0 +1,3 @@
+-r requirements.txt
+# Only needed to render/inspect the PDF during verification.
+pymupdf==2.1

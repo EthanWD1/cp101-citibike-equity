@@ -1,0 +1,37 @@
+scope,variable,metric,tracts,spearman_rho,status
+NYC,income,stations_per_km2,2199,0.05389631116,descriptive
+NYC,income,stations_per_10000,2199,0.06865943422,descriptive
+NYC,income,departures_per_station,884,0.6123845895,descriptive
+NYC,no_vehicle_share,stations_per_km2,2231,0.586771065,descriptive
+NYC,no_vehicle_share,stations_per_10000,2231,0.5385193396,descriptive
+NYC,no_vehicle_share,departures_per_station,896,0.3449253114,descriptive
+Bronx,income,stations_per_km2,339,-0.5256474334,descriptive
+Bronx,income,stations_per_10000,339,-0.5103365178,descriptive
+Bronx,income,departures_per_station,141,-0.2663758403,descriptive
+Bronx,no_vehicle_share,stations_per_km2,344,0.5975433151,descriptive
+Bronx,no_vehicle_share,stations_per_10000,344,0.565858889,descriptive
+Bronx,no_vehicle_share,departures_per_station,143,0.2918215041,descriptive
+Brooklyn,income,stations_per_km2,769,0.2979055885,descriptive
+Brooklyn,income,stations_per_10000,769,0.3166647964,descriptive
+Brooklyn,income,departures_per_station,300,0.6048501005,descriptive
+Brooklyn,no_vehicle_share,stations_per_km2,777,0.4476378425,descriptive
+Brooklyn,no_vehicle_share,stations_per_10000,777,0.4187814373,descriptive
+Brooklyn,no_vehicle_share,departures_per_station,301,0.1356256486,descriptive
+Manhattan,income,stations_per_km2,298,0.05226786518,descriptive
+Manhattan,income,stations_per_10000,298,0.08333192229,descriptive
+Manhattan,income,departures_per_station,263,0.5513323261,descriptive
+Manhattan,no_vehicle_share,stations_per_km2,301,0.1575355048,descriptive
+Manhattan,no_vehicle_share,stations_per_10000,301,0.1956907413,descriptive
+Manhattan,no_vehicle_share,departures_per_station,266,0.1509061452,descriptive
+Queens,income,stations_per_km2,675,-0.132315109,descriptive
+Queens,income,stations_per_10000,675,-0.1134656171,descriptive
+Queens,income,departures_per_station,180,0.3774745555,descriptive
+Queens,no_vehicle_share,stations_per_km2,687,0.5066676875,descriptive
+Queens,no_vehicle_share,stations_per_10000,687,0.4709174739,descriptive
+Queens,no_vehicle_share,departures_per_station,186,0.4021425897,descriptive
+Staten Island,income,stations_per_km2,118,,not applicable: insufficient or constant values
+Staten Island,income,stations_per_10000,118,,not applicable: insufficient or constant values
+Staten Island,income,departures_per_station,0,,not applicable: insufficient or constant values
+Staten Island,no_vehicle_share,stations_per_km2,122,,not applicable: insufficient or constant values
+Staten Island,no_vehicle_share,stations_per_10000,122,,not applicable: insufficient or constant values
+Staten Island,no_vehicle_share,departures_per_station,0,,not applicable: insufficient or constant values

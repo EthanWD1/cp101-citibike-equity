@@ -1,0 +1,33 @@
+{
+  "figures": [
+    {
+      "file": "01_station_density_map.png",
+      "caption": "Station coverage is shown for all five boroughs; zero means no station was observed in this month's trip records."
+    },
+    {
+      "file": "02_density_by_income.png",
+      "caption": "Boxes show tract density distributions, including zeros; citywide quartile thresholds are held fixed in every borough."
+    },
+    {
+      "file": "03_density_by_vehicle_access.png",
+      "caption": "Boxes show tract density distributions, including zeros; citywide quartile thresholds are held fixed in every borough."
+    },
+    {
+      "file": "04_usage_by_demographics.png",
+      "caption": "Median usage is compared only among tracts with observed stations; gaps denote empty groups, not zero usage."
+    },
+    {
+      "file": "05_demographic_scatterplots.png",
+      "caption": "Each point is a tract; citywide associations can differ from within-borough patterns and do not identify individual riders."
+    },
+    {
+      "file": "06_daily_departures.png",
+      "caption": "Daily departures show the full month's observed activity by rider category, including stations in nonresidential NYC tracts."
+    }
+  ],
+  "positive_density_breaks_stations_per_km2": [
+    8.216229030220243,
+    12.052392105417002,
+    17.18307594680539
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "202509-citibike-tripdata.zip": {
+    "url": "https://s3.amazonaws.com/tripdata/202509-citibike-tripdata.zip",
+    "retrieved_at_utc": "2026-11-03T02:17:35.217700+00:00",
+    "bytes": 1032411368,
+    "sha256": "b1721f1f9306daf2ca5aa358efe64c70da7c58cda82ae595692bb2d7cf2d5e46"
+  },
+  "tl_2024_36_tract.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2024/TRACT/tl_2024_36_tract.zip",
+    "retrieved_at_utc": "2026-11-03T02:17:37.015348+00:00",
+    "bytes": 8853911,
+    "sha256": "80010cc0b3e1ef6d8c27072ec7f679f328d0e1d82b3b96cb744e8811df8221c7"
+  },
+  "acsdt5y2024-b01003.dat": {
+    "url": "https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/acsdt5y2024-b01003.dat",
+    "retrieved_at_utc": "2026-11-03T02:17:39.109981+00:00",
+    "bytes": 18313708,
+    "sha256": "38d1a992bb058d184009b10b9b34987279aee575e4323165cfb5706c69b6ca90"
+  },
+  "acsdt5y2024-b08201.dat": {
+    "url": "https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/acsdt5y2024-b08201.dat",
+    "retrieved_at_utc": "2026-11-03T02:17:46.361593+00:00",
+    "bytes": 65043091,
+    "sha256": "2f64e698223ba83f97b67dde4a34961a02f230e0359ffc69b9657b89a3df6b4d"
+  },
+  "acsdt5y2024-b19013.dat": {
+    "url": "https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/acsdt5y2024-b19013.dat",
+    "retrieved_at_utc": "2026-11-03T02:17:48.502332+00:00",
+    "bytes": 17917916,
+    "sha256": "b25a176b0e6c339b6f3a2a0d3d8446bf06f5f080b4395993ec9a8313efb1c229"
+  }
+}

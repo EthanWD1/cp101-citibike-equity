@@ -1,0 +1,65 @@
+{
+  "checks": {
+    "six_files_processed": true,
+    "sequential_exclusions_reconcile": true,
+    "retained_start_ids_reconcile": true,
+    "retained_missingness_reconciles": true,
+    "one_station_row_per_id": true,
+    "one_row_per_tract": true,
+    "all_geoid_lengths": true,
+    "station_tract_totals_reconcile": true,
+    "nyc_departures_reconcile": true,
+    "nyc_borough_departures_reconcile": true,
+    "nyc_daily_departures_reconcile": true,
+    "zero_station_usage_is_missing": true,
+    "zero_station_departures_are_zero": true,
+    "household_numerators_valid": true,
+    "positive_residential_denominators": true
+  },
+  "counts": {
+    "raw_rows": 5287447,
+    "missing_ride_id": 0,
+    "duplicate_ride_id": 0,
+    "invalid_start_time": 0,
+    "outside_september": 931,
+    "retained_september": 5286516,
+    "station_identified_starts": 5284398,
+    "unassigned_station_identified_starts": 0,
+    "nyc_station_departures": 5284398,
+    "coordinate_only_starts": 0,
+    "coordinate_only_nyc_starts": 0,
+    "missing_id_and_coordinates": 2118,
+    "observed_station_ids_with_coordinates": 2269,
+    "observed_nyc_stations": 2212,
+    "unmatched_station_locations": 57,
+    "boundary_tie_stations": 0,
+    "location_review_flags": 1,
+    "all_nyc_tracts": 2327,
+    "eligible_tracts": 2231,
+    "zero_station_eligible_tracts": 1335,
+    "nonresidential_nyc_departures": 196150,
+    "income_censored_eligible": 13,
+    "income_imprecise_eligible": 272
+  },
+  "quartile_thresholds": {
+    "income": [
+      60631.5,
+      82676.0,
+      108306.5
+    ],
+    "no_vehicle_share": [
+      0.278871433881257,
+      0.5078226857887875,
+      0.6976843512038557
+    ]
+  },
+  "runtime_seconds": 86.94,
+  "python": "3.13.12",
+  "packages": {
+    "pandas": "3.1.0",
+    "numpy": "2.5.4",
+    "geopandas": "1.2.0",
+    "matplotlib": "3.11.2",
+    "scipy": "1.18.1"
+  }
+}

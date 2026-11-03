@@ -1,0 +1,16 @@
+{
+  "date": "2026-11-02",
+  "unit_tests_passed": 10,
+  "reconciliation_checks_passed": 15,
+  "fresh_kernel_runs": 2,
+  "external_network": "disabled in each kernel using analysis.offline; localhost kernel communication permitted",
+  "packaged_files_checksum_verified": 57,
+  "identical_regenerated_csv_and_png_files": 22,
+  "report_pages": 3,
+  "regenerated_report_text_identical": true,
+  "original_data_processing_seconds": 86.94,
+  "packaged_data_processing_seconds": 77.16,
+  "source_trip_rows": 5287447,
+  "source_csv_files": 6,
+  "scope": "The final ZIP adds this verification record and documentation/whitespace cleanup to the successfully rerun package; analytical logic and inputs are unchanged."
+}

@@ -1,0 +1,7 @@
+scope,all_tracts,eligible_tracts,zero_station_tracts,zero_station_pct,observed_stations_all_tracts,observed_stations_eligible,departures_all_tracts,departures_eligible,median_stations_per_km2,median_stations_per_10000,median_departures_per_station
+NYC,2327,2231,1335,59.83863738,2212,2091,5284398,5088248,0,0,1130.5
+Bronx,361,344,201,58.43023256,327,310,139926,134898,0,0,384.6
+Brooklyn,805,777,476,61.26126126,726,676,1446013,1371532,0,0,1462.333333
+Manhattan,310,301,35,11.62790698,707,676,3342360,3238876,11.54867768,3.538570418,4399.1
+Queens,725,687,501,72.92576419,452,429,356099,342942,0,0,574
+Staten Island,126,122,122,100,0,0,0,0,0,0,

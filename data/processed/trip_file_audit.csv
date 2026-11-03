@@ -1,0 +1,7 @@
+file,raw_rows,missing_ride_id,duplicate_ride_id,invalid_start_time,outside_september,retained_september
+202509-citibike-tripdata_1.csv,1000000,0,0,0,436,999564
+202509-citibike-tripdata_2.csv,1000000,0,0,0,341,999659
+202509-citibike-tripdata_3.csv,1000000,0,0,0,154,999846
+202509-citibike-tripdata_4.csv,1000000,0,0,0,0,1000000
+202509-citibike-tripdata_5.csv,1000000,0,0,0,0,1000000
+202509-citibike-tripdata_6.csv,287447,0,0,0,0,287447
