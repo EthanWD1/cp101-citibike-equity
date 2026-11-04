@@ -53,7 +53,7 @@
       0.6976843512038557
     ]
   },
-  "runtime_seconds": 86.94,
+  "runtime_seconds": 78.21,
   "python": "3.13.12",
   "packages": {
     "pandas": "3.1.0",

@@ -90,6 +90,8 @@ def run(make_report=True, chunk_size=200_000):
     (PROCESSED / "validation.json").write_text(json.dumps(validation, indent=2, allow_nan=False) + "\n")
     write_cleaning_notes(ledger, validation)
     create_figures(tracts, stations, daily, comparisons, correlations)
+    from .verify_figures import verify
+    verify()
     if make_report:
         from .report import build_report
         build_report()

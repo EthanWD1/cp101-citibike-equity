@@ -28,5 +28,35 @@
     "retrieved_at_utc": "2026-11-03T02:17:48.502332+00:00",
     "bytes": 17917916,
     "sha256": "b25a176b0e6c339b6f3a2a0d3d8446bf06f5f080b4395993ec9a8313efb1c229"
+  },
+  "tl_2024_36005_areawater.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2024/AREAWATER/tl_2024_36005_areawater.zip",
+    "retrieved_at_utc": "2026-11-03T23:52:54.971008+00:00",
+    "bytes": 28876,
+    "sha256": "c87df952d2060836c946793e4e7e4269b1ea5011fb40ddfe37d4ca0da3721ba3"
+  },
+  "tl_2024_36047_areawater.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2024/AREAWATER/tl_2024_36047_areawater.zip",
+    "retrieved_at_utc": "2026-11-03T23:52:55.510770+00:00",
+    "bytes": 67085,
+    "sha256": "94c9743d1b482a62177a3ca81fed404d147f4e2d19da9ed11170fe78117f6a7b"
+  },
+  "tl_2024_36061_areawater.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2024/AREAWATER/tl_2024_36061_areawater.zip",
+    "retrieved_at_utc": "2026-11-03T23:52:56.188929+00:00",
+    "bytes": 37215,
+    "sha256": "8d18d2586fa154c5fe8a30f8cff2c7bca8bbd6f860e21f2874ffb903232b72cc"
+  },
+  "tl_2024_36081_areawater.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2024/AREAWATER/tl_2024_36081_areawater.zip",
+    "retrieved_at_utc": "2026-11-03T23:52:56.828134+00:00",
+    "bytes": 140107,
+    "sha256": "64b5d7fca0a31a1ea23546cdd3c3b4ca90cd0a7db7224b49ee033343acd7e325"
+  },
+  "tl_2024_36085_areawater.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2024/AREAWATER/tl_2024_36085_areawater.zip",
+    "retrieved_at_utc": "2026-11-03T23:52:57.126234+00:00",
+    "bytes": 81535,
+    "sha256": "742732b50ae7c602307dedd94728035427c4523af54a53eff277eb983297d939"
   }
 }

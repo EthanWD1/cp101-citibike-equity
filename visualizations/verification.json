@@ -1,0 +1,14 @@
+{
+  "map_population_and_zero_share": true,
+  "display_geometry_valid_without_eligible_loss": true,
+  "display_ids_and_attributes_unchanged": true,
+  "map_density_breaks": true,
+  "exact_citywide_cutoffs": true,
+  "all_48_density_groups_match_tracts_and_tables": true,
+  "all_48_usage_groups_match_tracts_and_tables": true,
+  "staten_island_usage_undefined": true,
+  "manhattan_two_tract_group_flagged": true,
+  "all_scatter_observations_zeros_and_censored_incomes_retained": true,
+  "daily_calendar_and_departure_totals": true,
+  "daily_category_means": true
+}

@@ -79,7 +79,7 @@ class Report:
     def footer(self):
         self.pdf.setFont("Helvetica", 8)
         self.pdf.setFillColor(colors.HexColor("#58646a"))
-        self.pdf.drawString(self.margin, 23, "Group PAIR · CYPLAN 101 · Track B · November 2, 2026")
+        self.pdf.drawString(self.margin, 23, "Group PAIR · CYPLAN 101 · Track B · Revised November 3, 2026")
         self.pdf.drawRightString(574, 23, f"{self.page} / 3")
 
     def finish(self):
@@ -98,6 +98,8 @@ def build_report():
     ledger = pd.read_csv(PROCESSED / "cleaning_ledger.csv")
     missingness = pd.read_csv(PROCESSED / "missingness_by_date_category.csv")
     tracts = pd.read_csv(PROCESSED / "tract_metrics.csv")
+    figure_data = json.loads((FIGURES / "figure_data.json").read_text())
+    casual = figure_data["daily"]["categories"]["casual"]
     def rho(scope, variable, metric="stations_per_km2"):
         value = correlations.loc[correlations.scope.eq(scope) & correlations.variable.eq(variable) & correlations.metric.eq(metric), "spearman_rho"].iloc[0]
         return number(value, 2)
@@ -141,7 +143,8 @@ def build_report():
     usage = (f"Among tracts with stations, median September departures per observed station rise from "
              f"{quartile('income','Q1','departures_per_station_median'):,.0f} in the lowest income quartile to "
              f"{quartile('income','Q4','departures_per_station_median'):,.0f} in the highest. This conditional comparison describes activity where stations were observed, "
-             "not demand in unserved tracts or trips made by residents. Daily variation is visible below; weather, weekends, and holidays have not been modeled.")
+             f"not demand in unserved tracts or trips made by residents. Casual departures averaged {casual['weekend_daily_mean']:,.0f}/day on weekends "
+             f"versus {casual['weekday_daily_mean']:,.0f} on weekdays this month; no causal explanation is established.")
     limitations = ("ACS estimates cover five years and have sampling uncertainty; they do not describe individual riders. Tract boundaries, jobs, transit, "
                    "land use, and partial-month operation can affect the patterns. The one flagged station location spans 291 m; its modal pair accounts for "
                    "383 of 389 endpoint observations, and both locations fall in the same tract. We retain the modal location with no manual override. "
@@ -157,11 +160,12 @@ def build_report():
                    + f"All {len(validation['checks'])} numerical/spatial reconciliation checks passed. NYC station departures total {counts['nyc_station_departures']:,}; "
                    + f"{counts['nonresidential_nyc_departures']:,} occur in tracts excluded from residential comparisons and remain included in daily activity.\n")
     Path("docs/early_results.md").write_text(findings_md)
-    source = ["# Group PAIR midterm report", "Timothy Phan and Ethan Deng · November 2, 2026 · Track B", "", "## Research question and status", question, "", status,
+    source = ["# Group PAIR midterm report", "Timothy Phan and Ethan Deng · Revised November 3, 2026 · Track B", "", "## Research question and status", question, "", status,
               "", "## Data and cleaning", data_text, "", cleaning, "", geography, "", "## Methods", methods.replace("<b>", "").replace("</b>", ""),
               "", "## Early results", coverage, "", associations, "", usage, "", "## Limitations", limitations, "", "## Plan to finish", plan.replace("<b>", "").replace("</b>", ""),
               "", feedback, "", "## Reproducibility and figures", f"Repository: {REPO}",
               "The report embeds figures 01 and 06; figures 02–05 and complete comparison tables accompany the PDF. All six figures have titles, units, sources, and captions.",
+              "Figure 01 subtracts 2024 Census Area Hydrography only from display geometry; original tracts, spatial joins, and TIGER ALAND denominators are unchanged. Figures 02–03 show medians, middle-50% intervals, zero-station percentages, and tract counts on a linear density scale. Figure 04 shows usage medians and contributing-tract counts, flags n<5, and distinguishes undefined usage. Figure 05 retains all observations and flags censored income. Figure 06 shades weekends and labels rider categories directly.",
               "Official source links and data-use terms are listed in README.md and data/raw/sources.json."]
     Path("docs/report_source.md").write_text("\n\n".join(source) + "\n")
     report = Report("Group_PAIR_midterm.pdf")
@@ -193,7 +197,7 @@ def build_report():
         row = boroughs.loc[scope]
         rows.append([scope, f"{int(row.eligible_tracts):,}", number(row.zero_station_pct), number(row.median_stations_per_km2,2), f"{int(row.departures_all_tracts):,}"])
     report.table(rows, [102, 83, 111, 124, 116], font=8.1)
-    report.para("*Departures include all assigned NYC stations, including tracts outside the residential comparison. Density medians and zero percentages use eligible residential tracts only. Figure 01 uses distinct zero/missing classes; full-size PNGs accompany this report.", size=8, leading=10.2)
+    report.para("*Departures include all assigned NYC stations, including tracts outside the residential comparison. Density medians and zero percentages use eligible tracts only. Figure 01 removes 2024 Census water polygons for display; original tracts, station assignments, and ALAND denominators remain unchanged. Full-size PNGs accompany this report.", size=8, leading=10.2)
     report.new_page("Early results, limitations, and plan to finish")
     report.para(associations, size=9.4, leading=12.2)
     report.para(usage, size=9.4, leading=12.2)
@@ -203,11 +207,12 @@ def build_report():
     report.para("Plan to finish and requested feedback", size=10.5, bold=True, gap=4)
     report.para(plan, size=9, leading=11.6)
     report.para(feedback, size=8.8, leading=11.2)
-    report.para("Companion figures: 02 income-density distributions; 03 vehicle-share-density distributions; 04 usage by demographic quartile; "
-                "05 demographic scatterplots. Full citywide/borough statistics and uncertainty flags are included with the notebook.", size=8, leading=10.2)
+    report.para("Companion figures: 02–03 density medians and middle-50% intervals with zero-station shares and n; 04 usage heatmaps with n (groups below 5 flagged); "
+                "05 linear scatterplots with censored incomes marked. Full citywide/borough tables accompany the notebook.", size=8, leading=10.2)
     report.para(f'<b>Sources and code:</b> <link href="https://citibikenyc.com/system-data" color="#214c64">Citi Bike trip histories</link>; '
                 '<link href="https://www.census.gov/programs-surveys/acs/data/summary-file.2024.html" color="#214c64">ACS 2024 five-year Summary File</link>; '
-                '<link href="https://www2.census.gov/geo/tiger/TIGER2024/TRACT/tl_2024_36_tract.zip" color="#214c64">TIGER/Line 2024</link>. '
+                '<link href="https://www2.census.gov/geo/tiger/TIGER2024/TRACT/tl_2024_36_tract.zip" color="#214c64">TIGER/Line 2024 tracts</link>; '
+                '<link href="https://www2.census.gov/geo/tiger/TIGER2024/AREAWATER/" color="#214c64">water polygons</link>. '
                 f'<link href="{REPO}" color="#214c64">github.com/EthanWD1/cp101-citibike-equity</link>. Full provenance, attribution, and computational-assistance notes are in the README.', size=7.7, leading=10)
     report.finish()
     print("Generated three-page report and Markdown sources.", flush=True)

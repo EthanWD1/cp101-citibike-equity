@@ -34,7 +34,7 @@ python -m analysis.download_data
 python -m analysis.pipeline
 ```
 
-The first command downloads the original trip ZIP (1,032,411,368 bytes), New York tract ZIP, and three national ACS table files. It records URLs, UTC retrieval timestamps, sizes, and SHA-256 checksums in `data/raw/sources.json`. Rerunning verifies existing sources instead of downloading them again. A changed checksum is an error that must be investigated.
+The first command downloads the original trip ZIP (1,032,411,368 bytes), New York tract ZIP, three national ACS table files, and five small NYC county water ZIPs. It records URLs, UTC retrieval timestamps, sizes, and SHA-256 checksums in `data/raw/sources.json`. Rerunning verifies existing sources instead of downloading them again. A changed checksum is an error that must be investigated.
 
 The second command verifies inputs, processes all trips in chunks, regenerates processed data, makes all six figures, and builds the PDF and report source. **It does not need internet access.** The Gradescope ZIP already includes all raw inputs, so skip acquisition when running that copy. Allow about 5 GB free disk space for inputs, the SQLite deduplication index, outputs, and packaging. Download time depends on the connection; analysis timing for the tested machine is recorded in `data/processed/validation.json`. Chunk size defaults to 200,000; lower it with `--chunk-size 50000` if necessary.
 
@@ -50,6 +50,16 @@ For numerical and spatial edge-case tests:
 python -m unittest discover -s tests -v
 ```
 
+To revise figures without reprocessing trips, regenerate them from existing processed tables and reconcile all plotted summaries:
+
+```bash
+python -m analysis.visualize
+python -m analysis.verify_figures
+python -m analysis.report
+```
+
+The full pipeline and notebook perform the same figure checks automatically. Run the full notebook after finalizing figure changes so its embedded images remain current.
+
 The repository uses relative project paths. The original proposal is preserved. This is a midterm analysis repository; animated maps and GitHub Pages remain final-project work.
 
 ## Source data
@@ -59,6 +69,7 @@ The repository uses relative project paths. The original proposal is preserved. 
 | Citi Bike trip histories | September 2025 starts; individual trips; stations assigned spatially to NYC | Tabular CSVs in original ZIP | [System data](https://citibikenyc.com/system-data), [archive](https://s3.amazonaws.com/tripdata/202509-citibike-tripdata.zip), [NYCBS data policy](https://citibikenyc.com/data-sharing-policy) |
 | ACS five-year detailed tables | 2020–2024; NYC census tracts selected from national files | Pipe-delimited text, estimates and margins of error | [Summary file documentation](https://www.census.gov/programs-surveys/acs/data/summary-file.2024.html), [official files](https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/) |
 | TIGER/Line tracts | 2024 New York, filtered to Bronx, Kings, New York, Queens, Richmond counties | Polygon shapefile in ZIP | [Original tract ZIP](https://www2.census.gov/geo/tiger/TIGER2024/TRACT/tl_2024_36_tract.zip) |
+| TIGER/Line Area Hydrography | 2024 water polygons for the five NYC counties; display only | Five polygon shapefile ZIPs, 355 KB total | [Official Area Hydrography directory](https://www2.census.gov/geo/tiger/TIGER2024/AREAWATER/) |
 
 Census-produced data are generally not copyrighted in the United States; see the [Census data policy](https://www2.census.gov/foia/ds_policies/ds027.pdf). Citi Bike data retain their source terms. The original trip archive is included as source material in the noncommercial course submission, not published here as a standalone dataset. Download it from the provider to reproduce a GitHub clone. No rider identification is attempted.
 
@@ -72,6 +83,18 @@ Census-produced data are generally not copyrighted in the United States; see the
 6. Use fixed citywide 25th/50th/75th percentile cutpoints within every borough. Equal values are not split to force equal-sized groups. Report tract counts, zero-station percentages, density distributions, usage medians, and descriptive Spearman correlations. Each tract receives equal weight. Empty/constant groups have undefined correlations.
 
 Area normalization uses **TIGER ALAND / 1,000,000**, not polygon area including water. Population normalization is stations per 10,000 ACS residents. September usage is departures per observed station, not trips per station-day. Daily totals include NYC stations in both eligible and ineligible tracts; the audit explicitly reconciles that difference.
+
+## Reading the figures
+
+The November 3 revision preserves every analytical result and improves the six static figures:
+
+- **01 — Coverage map:** a display-only shoreline mask removes water from the original tracts. Density colors remain visible without a station-dot overlay; zero stations and ineligible tracts have distinct symbols. Original geometries, station assignments, and land-area denominators remain unchanged. The same positive-density quartile breaks are retained.
+- **02–03 — Density comparisons:** dots show medians and lines show the middle 50% of tracts on a common 0–60 stations/km² scale. Each row gives its no-station percentage and eligible-tract count with the relevant demographic estimate. Intervals describe tract distributions, not confidence intervals. Boroughs use the same exact citywide grouping thresholds; labels round those thresholds for readability.
+- **04 — Usage comparisons:** two heatmaps show median monthly departures per station and contributing-tract counts. Usage is defined only for tracts with stations. Empty groups stay gray; orange outlines and daggers flag fewer than five tracts as a descriptive caution, without excluding those observations.
+- **05 — Demographic associations:** linear axes retain all points, show zero-density tracts above the border, and distinguish income reported as $250,000+. Spearman rho describes rank association; it does not establish causation.
+- **06 — Daily departures:** direct labels identify member/casual lines, shaded bands identify weekends, and the annotation compares observed casual daily averages.
+
+`visualizations/figure_data.json` records all plotted group summaries, exact cutpoints, sample sizes, daily means, and display-mask checks. `visualizations/verification.json` reconciles these against tract-level observations and published tables. Each PNG includes a takeaway, units, source dates, and a caption; full population definitions also appear in `captions.json`.
 
 ## Organization and submission
 

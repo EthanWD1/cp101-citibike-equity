@@ -6,6 +6,7 @@
 - `GEOID`: eleven-character Census tract identifier: state (2) + county (3) + tract (6). NYC state is 36; county codes are 005 (Bronx), 047 (Brooklyn/Kings), 061 (Manhattan/New York), 081 (Queens), and 085 (Staten Island/Richmond).
 - Station source coordinates are longitude/latitude in EPSG:4326. Spatial joins use **EPSG:32618**; distances are meters. The tract GeoPackage retains that projected CRS.
 - The data manifest preserves the provider URLs and SHA-256 checksums. Raw data are unchanged. The trip archive contains six CSVs, read in lexicographic filename order.
+- `tl_2024_36{county}_areawater.zip`: official 2024 Census Area Hydrography for county codes 005, 047, 061, 081, and 085. These polygons are projected to EPSG:32618 and subtracted from a copy of tract geometry for the map only. No station assignments, tract IDs, stored geometries, or analytical attributes change; density still uses original TIGER ALAND. The mask must retain every eligible tract and produce valid geometries.
 
 ## ACS fields
 
@@ -52,6 +53,8 @@ The thresholds in `validation.json` are numerical; no borough-specific recutting
 - `quartile_comparisons.csv`: group sizes, served-tract counts, zero-station percentages, and distributions of all three metrics.
 - `spearman_correlations.csv`: citywide and within-borough rank associations, sample sizes, and explicit undefined cases. No inferential p-values are reported.
 - `validation.json`: reconciliation checks, headline counts, thresholds, software versions, and runtime.
+- `visualizations/figure_data.json`: figure summaries and populations, unrounded grouping thresholds, positive-density map checks, scatterplot counts (including zero and censored observations), and calendar-based daily averages. Density intervals are the 25th and 75th percentiles across tracts. Usage cells count eligible tracts with a demographic estimate and at least one observed station, not stations or trips. The fewer-than-five flag is a presentation caution, not an exclusion or formal statistical threshold.
+- `visualizations/verification.json`: reconciliation of all 48 density rows and 48 usage cells against both underlying tract observations and comparison tables, plus map, scatterplot, and daily-total checks.
 
 ## Limits
 

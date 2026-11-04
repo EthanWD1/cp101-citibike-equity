@@ -1,0 +1,952 @@
+{
+  "map": {
+    "eligible_tracts": 2231,
+    "zero_station_tracts": 1335,
+    "zero_station_pct": 59.838637382339755,
+    "valid_display_geometries": true,
+    "eligible_display_geometries_lost": 0,
+    "tract_ids_preserved": true,
+    "analytical_attributes_preserved": true,
+    "water_archives": [
+      "tl_2024_36005_areawater.zip",
+      "tl_2024_36047_areawater.zip",
+      "tl_2024_36061_areawater.zip",
+      "tl_2024_36081_areawater.zip",
+      "tl_2024_36085_areawater.zip"
+    ]
+  },
+  "exact_group_thresholds": {
+    "income": [
+      60631.5,
+      82676.0,
+      108306.5
+    ],
+    "no_vehicle_share": [
+      0.278871433881257,
+      0.5078226857887875,
+      0.6976843512038557
+    ]
+  },
+  "density_groups": [
+    {
+      "scope": "NYC",
+      "variable": "income",
+      "quartile": "Q1",
+      "tracts": 550,
+      "zero_station_pct": 52.545454545454554,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 11.439730618148376
+    },
+    {
+      "scope": "NYC",
+      "variable": "income",
+      "quartile": "Q2",
+      "tracts": 550,
+      "zero_station_pct": 68.54545454545455,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 7.158579066985094
+    },
+    {
+      "scope": "NYC",
+      "variable": "income",
+      "quartile": "Q3",
+      "tracts": 549,
+      "zero_station_pct": 70.85610200364299,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 5.596722559269292
+    },
+    {
+      "scope": "NYC",
+      "variable": "income",
+      "quartile": "Q4",
+      "tracts": 550,
+      "zero_station_pct": 47.27272727272727,
+      "p25": 0.0,
+      "median": 5.528248897067083,
+      "p75": 13.358256576140786
+    },
+    {
+      "scope": "Bronx",
+      "variable": "income",
+      "quartile": "Q1",
+      "tracts": 223,
+      "zero_station_pct": 40.80717488789238,
+      "p25": 0.0,
+      "median": 6.59339210243494,
+      "p75": 12.853975483172006
+    },
+    {
+      "scope": "Bronx",
+      "variable": "income",
+      "quartile": "Q2",
+      "tracts": 60,
+      "zero_station_pct": 85.0,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 0.0
+    },
+    {
+      "scope": "Bronx",
+      "variable": "income",
+      "quartile": "Q3",
+      "tracts": 41,
+      "zero_station_pct": 100.0,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 0.0
+    },
+    {
+      "scope": "Bronx",
+      "variable": "income",
+      "quartile": "Q4",
+      "tracts": 15,
+      "zero_station_pct": 100.0,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 0.0
+    },
+    {
+      "scope": "Brooklyn",
+      "variable": "income",
+      "quartile": "Q1",
+      "tracts": 173,
+      "zero_station_pct": 72.83236994219652,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 5.960647803203252
+    },
+    {
+      "scope": "Brooklyn",
+      "variable": "income",
+      "quartile": "Q2",
+      "tracts": 244,
+      "zero_station_pct": 73.36065573770492,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 5.700653180040797
+    },
+    {
+      "scope": "Brooklyn",
+      "variable": "income",
+      "quartile": "Q3",
+      "tracts": 177,
+      "zero_station_pct": 59.887005649717516,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 8.360924383799873
+    },
+    {
+      "scope": "Brooklyn",
+      "variable": "income",
+      "quartile": "Q4",
+      "tracts": 175,
+      "zero_station_pct": 33.14285714285714,
+      "p25": 0.0,
+      "median": 9.548271285483763,
+      "p75": 14.152407396503861
+    },
+    {
+      "scope": "Manhattan",
+      "variable": "income",
+      "quartile": "Q1",
+      "tracts": 66,
+      "zero_station_pct": 7.575757575757576,
+      "p25": 7.525753432746734,
+      "median": 11.3629912021695,
+      "p75": 16.59005012389627
+    },
+    {
+      "scope": "Manhattan",
+      "variable": "income",
+      "quartile": "Q2",
+      "tracts": 35,
+      "zero_station_pct": 14.285714285714285,
+      "p25": 6.154753231347257,
+      "median": 12.721998880464099,
+      "p75": 21.049475673560107
+    },
+    {
+      "scope": "Manhattan",
+      "variable": "income",
+      "quartile": "Q3",
+      "tracts": 34,
+      "zero_station_pct": 17.647058823529413,
+      "p25": 4.686708770992045,
+      "median": 9.797041644344167,
+      "p75": 16.42941023665759
+    },
+    {
+      "scope": "Manhattan",
+      "variable": "income",
+      "quartile": "Q4",
+      "tracts": 163,
+      "zero_station_pct": 11.65644171779141,
+      "p25": 7.956464636680746,
+      "median": 11.893689446253607,
+      "p75": 18.535457214705367
+    },
+    {
+      "scope": "Queens",
+      "variable": "income",
+      "quartile": "Q1",
+      "tracts": 74,
+      "zero_station_pct": 71.62162162162163,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 7.14613205266159
+    },
+    {
+      "scope": "Queens",
+      "variable": "income",
+      "quartile": "Q2",
+      "tracts": 190,
+      "zero_station_pct": 63.68421052631579,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 8.525827498127999
+    },
+    {
+      "scope": "Queens",
+      "variable": "income",
+      "quartile": "Q3",
+      "tracts": 255,
+      "zero_station_pct": 76.07843137254902,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 0.0
+    },
+    {
+      "scope": "Queens",
+      "variable": "income",
+      "quartile": "Q4",
+      "tracts": 156,
+      "zero_station_pct": 81.41025641025641,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 0.0
+    },
+    {
+      "scope": "Staten Island",
+      "variable": "income",
+      "quartile": "Q1",
+      "tracts": 14,
+      "zero_station_pct": 100.0,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 0.0
+    },
+    {
+      "scope": "Staten Island",
+      "variable": "income",
+      "quartile": "Q2",
+      "tracts": 21,
+      "zero_station_pct": 100.0,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 0.0
+    },
+    {
+      "scope": "Staten Island",
+      "variable": "income",
+      "quartile": "Q3",
+      "tracts": 42,
+      "zero_station_pct": 100.0,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 0.0
+    },
+    {
+      "scope": "Staten Island",
+      "variable": "income",
+      "quartile": "Q4",
+      "tracts": 41,
+      "zero_station_pct": 100.0,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 0.0
+    },
+    {
+      "scope": "NYC",
+      "variable": "no_vehicle_share",
+      "quartile": "Q1",
+      "tracts": 558,
+      "zero_station_pct": 95.51971326164875,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 0.0
+    },
+    {
+      "scope": "NYC",
+      "variable": "no_vehicle_share",
+      "quartile": "Q2",
+      "tracts": 558,
+      "zero_station_pct": 76.88172043010752,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 0.0
+    },
+    {
+      "scope": "NYC",
+      "variable": "no_vehicle_share",
+      "quartile": "Q3",
+      "tracts": 557,
+      "zero_station_pct": 45.062836624775585,
+      "p25": 0.0,
+      "median": 5.993443173168553,
+      "p75": 12.344993179391269
+    },
+    {
+      "scope": "NYC",
+      "variable": "no_vehicle_share",
+      "quartile": "Q4",
+      "tracts": 558,
+      "zero_station_pct": 21.863799283154123,
+      "p25": 4.948849234675551,
+      "median": 11.217338608124873,
+      "p75": 16.612242856324453
+    },
+    {
+      "scope": "Bronx",
+      "variable": "no_vehicle_share",
+      "quartile": "Q1",
+      "tracts": 44,
+      "zero_station_pct": 100.0,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 0.0
+    },
+    {
+      "scope": "Bronx",
+      "variable": "no_vehicle_share",
+      "quartile": "Q2",
+      "tracts": 74,
+      "zero_station_pct": 93.24324324324324,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 0.0
+    },
+    {
+      "scope": "Bronx",
+      "variable": "no_vehicle_share",
+      "quartile": "Q3",
+      "tracts": 91,
+      "zero_station_pct": 60.43956043956044,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 9.853217037532687
+    },
+    {
+      "scope": "Bronx",
+      "variable": "no_vehicle_share",
+      "quartile": "Q4",
+      "tracts": 135,
+      "zero_station_pct": 24.444444444444443,
+      "p25": 2.013919941284555,
+      "median": 9.755764437311896,
+      "p75": 13.302505277329224
+    },
+    {
+      "scope": "Brooklyn",
+      "variable": "no_vehicle_share",
+      "quartile": "Q1",
+      "tracts": 88,
+      "zero_station_pct": 95.45454545454545,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 0.0
+    },
+    {
+      "scope": "Brooklyn",
+      "variable": "no_vehicle_share",
+      "quartile": "Q2",
+      "tracts": 265,
+      "zero_station_pct": 77.73584905660378,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 0.0
+    },
+    {
+      "scope": "Brooklyn",
+      "variable": "no_vehicle_share",
+      "quartile": "Q3",
+      "tracts": 280,
+      "zero_station_pct": 47.14285714285714,
+      "p25": 0.0,
+      "median": 5.350976836544437,
+      "p75": 12.145152934792486
+    },
+    {
+      "scope": "Brooklyn",
+      "variable": "no_vehicle_share",
+      "quartile": "Q4",
+      "tracts": 144,
+      "zero_station_pct": 37.5,
+      "p25": 0.0,
+      "median": 7.895641702690195,
+      "p75": 14.480387812818089
+    },
+    {
+      "scope": "Manhattan",
+      "variable": "no_vehicle_share",
+      "quartile": "Q1",
+      "tracts": 0,
+      "zero_station_pct": null,
+      "p25": null,
+      "median": null,
+      "p75": null
+    },
+    {
+      "scope": "Manhattan",
+      "variable": "no_vehicle_share",
+      "quartile": "Q2",
+      "tracts": 4,
+      "zero_station_pct": 50.0,
+      "p25": 0.0,
+      "median": 2.793530184093639,
+      "p75": 10.23129554496497
+    },
+    {
+      "scope": "Manhattan",
+      "variable": "no_vehicle_share",
+      "quartile": "Q3",
+      "tracts": 54,
+      "zero_station_pct": 14.814814814814813,
+      "p25": 6.742423783126469,
+      "median": 9.577097858702366,
+      "p75": 16.642438119774372
+    },
+    {
+      "scope": "Manhattan",
+      "variable": "no_vehicle_share",
+      "quartile": "Q4",
+      "tracts": 243,
+      "zero_station_pct": 10.2880658436214,
+      "p25": 7.471056010431673,
+      "median": 12.088755643937791,
+      "p75": 18.969119245644578
+    },
+    {
+      "scope": "Queens",
+      "variable": "no_vehicle_share",
+      "quartile": "Q1",
+      "tracts": 321,
+      "zero_station_pct": 93.45794392523365,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 0.0
+    },
+    {
+      "scope": "Queens",
+      "variable": "no_vehicle_share",
+      "quartile": "Q2",
+      "tracts": 203,
+      "zero_station_pct": 68.96551724137932,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 6.243667326436181
+    },
+    {
+      "scope": "Queens",
+      "variable": "no_vehicle_share",
+      "quartile": "Q3",
+      "tracts": 128,
+      "zero_station_pct": 40.625,
+      "p25": 0.0,
+      "median": 6.844981349145807,
+      "p75": 14.700296758342265
+    },
+    {
+      "scope": "Queens",
+      "variable": "no_vehicle_share",
+      "quartile": "Q4",
+      "tracts": 35,
+      "zero_station_pct": 25.71428571428571,
+      "p25": 1.973344068325065,
+      "median": 10.514804845222073,
+      "p75": 15.301408338703151
+    },
+    {
+      "scope": "Staten Island",
+      "variable": "no_vehicle_share",
+      "quartile": "Q1",
+      "tracts": 105,
+      "zero_station_pct": 100.0,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 0.0
+    },
+    {
+      "scope": "Staten Island",
+      "variable": "no_vehicle_share",
+      "quartile": "Q2",
+      "tracts": 12,
+      "zero_station_pct": 100.0,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 0.0
+    },
+    {
+      "scope": "Staten Island",
+      "variable": "no_vehicle_share",
+      "quartile": "Q3",
+      "tracts": 4,
+      "zero_station_pct": 100.0,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 0.0
+    },
+    {
+      "scope": "Staten Island",
+      "variable": "no_vehicle_share",
+      "quartile": "Q4",
+      "tracts": 1,
+      "zero_station_pct": 100.0,
+      "p25": 0.0,
+      "median": 0.0,
+      "p75": 0.0
+    }
+  ],
+  "usage_groups": [
+    {
+      "scope": "NYC",
+      "variable": "income",
+      "quartile": "Q1",
+      "served_tracts": 261,
+      "median": 496.0,
+      "small_group": false
+    },
+    {
+      "scope": "NYC",
+      "variable": "income",
+      "quartile": "Q2",
+      "served_tracts": 173,
+      "median": 623.0,
+      "small_group": false
+    },
+    {
+      "scope": "NYC",
+      "variable": "income",
+      "quartile": "Q3",
+      "served_tracts": 160,
+      "median": 1097.75,
+      "small_group": false
+    },
+    {
+      "scope": "NYC",
+      "variable": "income",
+      "quartile": "Q4",
+      "served_tracts": 290,
+      "median": 4067.5,
+      "small_group": false
+    },
+    {
+      "scope": "Bronx",
+      "variable": "income",
+      "quartile": "Q1",
+      "served_tracts": 132,
+      "median": 387.83333333333337,
+      "small_group": false
+    },
+    {
+      "scope": "Bronx",
+      "variable": "income",
+      "quartile": "Q2",
+      "served_tracts": 9,
+      "median": 336.0,
+      "small_group": false
+    },
+    {
+      "scope": "Bronx",
+      "variable": "income",
+      "quartile": "Q3",
+      "served_tracts": 0,
+      "median": null,
+      "small_group": false
+    },
+    {
+      "scope": "Bronx",
+      "variable": "income",
+      "quartile": "Q4",
+      "served_tracts": 0,
+      "median": null,
+      "small_group": false
+    },
+    {
+      "scope": "Brooklyn",
+      "variable": "income",
+      "quartile": "Q1",
+      "served_tracts": 47,
+      "median": 674.3333333333334,
+      "small_group": false
+    },
+    {
+      "scope": "Brooklyn",
+      "variable": "income",
+      "quartile": "Q2",
+      "served_tracts": 65,
+      "median": 774.0,
+      "small_group": false
+    },
+    {
+      "scope": "Brooklyn",
+      "variable": "income",
+      "quartile": "Q3",
+      "served_tracts": 71,
+      "median": 1409.0,
+      "small_group": false
+    },
+    {
+      "scope": "Brooklyn",
+      "variable": "income",
+      "quartile": "Q4",
+      "served_tracts": 117,
+      "median": 2799.0,
+      "small_group": false
+    },
+    {
+      "scope": "Manhattan",
+      "variable": "income",
+      "quartile": "Q1",
+      "served_tracts": 61,
+      "median": 1337.6666666666667,
+      "small_group": false
+    },
+    {
+      "scope": "Manhattan",
+      "variable": "income",
+      "quartile": "Q2",
+      "served_tracts": 30,
+      "median": 1913.5,
+      "small_group": false
+    },
+    {
+      "scope": "Manhattan",
+      "variable": "income",
+      "quartile": "Q3",
+      "served_tracts": 28,
+      "median": 4335.5,
+      "small_group": false
+    },
+    {
+      "scope": "Manhattan",
+      "variable": "income",
+      "quartile": "Q4",
+      "served_tracts": 144,
+      "median": 6030.4,
+      "small_group": false
+    },
+    {
+      "scope": "Queens",
+      "variable": "income",
+      "quartile": "Q1",
+      "served_tracts": 21,
+      "median": 489.3333333333333,
+      "small_group": false
+    },
+    {
+      "scope": "Queens",
+      "variable": "income",
+      "quartile": "Q2",
+      "served_tracts": 69,
+      "median": 396.0,
+      "small_group": false
+    },
+    {
+      "scope": "Queens",
+      "variable": "income",
+      "quartile": "Q3",
+      "served_tracts": 61,
+      "median": 587.25,
+      "small_group": false
+    },
+    {
+      "scope": "Queens",
+      "variable": "income",
+      "quartile": "Q4",
+      "served_tracts": 29,
+      "median": 1230.3333333333333,
+      "small_group": false
+    },
+    {
+      "scope": "Staten Island",
+      "variable": "income",
+      "quartile": "Q1",
+      "served_tracts": 0,
+      "median": null,
+      "small_group": false
+    },
+    {
+      "scope": "Staten Island",
+      "variable": "income",
+      "quartile": "Q2",
+      "served_tracts": 0,
+      "median": null,
+      "small_group": false
+    },
+    {
+      "scope": "Staten Island",
+      "variable": "income",
+      "quartile": "Q3",
+      "served_tracts": 0,
+      "median": null,
+      "small_group": false
+    },
+    {
+      "scope": "Staten Island",
+      "variable": "income",
+      "quartile": "Q4",
+      "served_tracts": 0,
+      "median": null,
+      "small_group": false
+    },
+    {
+      "scope": "NYC",
+      "variable": "no_vehicle_share",
+      "quartile": "Q1",
+      "served_tracts": 25,
+      "median": 286.5,
+      "small_group": false
+    },
+    {
+      "scope": "NYC",
+      "variable": "no_vehicle_share",
+      "quartile": "Q2",
+      "served_tracts": 129,
+      "median": 723.0,
+      "small_group": false
+    },
+    {
+      "scope": "NYC",
+      "variable": "no_vehicle_share",
+      "quartile": "Q3",
+      "served_tracts": 306,
+      "median": 1034.75,
+      "small_group": false
+    },
+    {
+      "scope": "NYC",
+      "variable": "no_vehicle_share",
+      "quartile": "Q4",
+      "served_tracts": 436,
+      "median": 1820.4166666666665,
+      "small_group": false
+    },
+    {
+      "scope": "Bronx",
+      "variable": "no_vehicle_share",
+      "quartile": "Q1",
+      "served_tracts": 0,
+      "median": null,
+      "small_group": false
+    },
+    {
+      "scope": "Bronx",
+      "variable": "no_vehicle_share",
+      "quartile": "Q2",
+      "served_tracts": 5,
+      "median": 274.6666666666667,
+      "small_group": false
+    },
+    {
+      "scope": "Bronx",
+      "variable": "no_vehicle_share",
+      "quartile": "Q3",
+      "served_tracts": 36,
+      "median": 321.66666666666663,
+      "small_group": false
+    },
+    {
+      "scope": "Bronx",
+      "variable": "no_vehicle_share",
+      "quartile": "Q4",
+      "served_tracts": 102,
+      "median": 426.83333333333337,
+      "small_group": false
+    },
+    {
+      "scope": "Brooklyn",
+      "variable": "no_vehicle_share",
+      "quartile": "Q1",
+      "served_tracts": 4,
+      "median": 320.75,
+      "small_group": true
+    },
+    {
+      "scope": "Brooklyn",
+      "variable": "no_vehicle_share",
+      "quartile": "Q2",
+      "served_tracts": 59,
+      "median": 1198.0,
+      "small_group": false
+    },
+    {
+      "scope": "Brooklyn",
+      "variable": "no_vehicle_share",
+      "quartile": "Q3",
+      "served_tracts": 148,
+      "median": 1441.0,
+      "small_group": false
+    },
+    {
+      "scope": "Brooklyn",
+      "variable": "no_vehicle_share",
+      "quartile": "Q4",
+      "served_tracts": 90,
+      "median": 1761.1666666666665,
+      "small_group": false
+    },
+    {
+      "scope": "Manhattan",
+      "variable": "no_vehicle_share",
+      "quartile": "Q1",
+      "served_tracts": 0,
+      "median": null,
+      "small_group": false
+    },
+    {
+      "scope": "Manhattan",
+      "variable": "no_vehicle_share",
+      "quartile": "Q2",
+      "served_tracts": 2,
+      "median": 5658.0,
+      "small_group": true
+    },
+    {
+      "scope": "Manhattan",
+      "variable": "no_vehicle_share",
+      "quartile": "Q3",
+      "served_tracts": 46,
+      "median": 3505.75,
+      "small_group": false
+    },
+    {
+      "scope": "Manhattan",
+      "variable": "no_vehicle_share",
+      "quartile": "Q4",
+      "served_tracts": 218,
+      "median": 4562.5,
+      "small_group": false
+    },
+    {
+      "scope": "Queens",
+      "variable": "no_vehicle_share",
+      "quartile": "Q1",
+      "served_tracts": 21,
+      "median": 286.5,
+      "small_group": false
+    },
+    {
+      "scope": "Queens",
+      "variable": "no_vehicle_share",
+      "quartile": "Q2",
+      "served_tracts": 63,
+      "median": 463.6666666666667,
+      "small_group": false
+    },
+    {
+      "scope": "Queens",
+      "variable": "no_vehicle_share",
+      "quartile": "Q3",
+      "served_tracts": 76,
+      "median": 717.3333333333333,
+      "small_group": false
+    },
+    {
+      "scope": "Queens",
+      "variable": "no_vehicle_share",
+      "quartile": "Q4",
+      "served_tracts": 26,
+      "median": 994.75,
+      "small_group": false
+    },
+    {
+      "scope": "Staten Island",
+      "variable": "no_vehicle_share",
+      "quartile": "Q1",
+      "served_tracts": 0,
+      "median": null,
+      "small_group": false
+    },
+    {
+      "scope": "Staten Island",
+      "variable": "no_vehicle_share",
+      "quartile": "Q2",
+      "served_tracts": 0,
+      "median": null,
+      "small_group": false
+    },
+    {
+      "scope": "Staten Island",
+      "variable": "no_vehicle_share",
+      "quartile": "Q3",
+      "served_tracts": 0,
+      "median": null,
+      "small_group": false
+    },
+    {
+      "scope": "Staten Island",
+      "variable": "no_vehicle_share",
+      "quartile": "Q4",
+      "served_tracts": 0,
+      "median": null,
+      "small_group": false
+    }
+  ],
+  "scatter_panels": [
+    {
+      "variable": "income",
+      "metric": "stations_per_km2",
+      "plotted_tracts": 2199,
+      "correlation_tracts": 2199,
+      "zero_station_tracts": 1315,
+      "censored_income_tracts": 13,
+      "all_values_in_range": true
+    },
+    {
+      "variable": "income",
+      "metric": "departures_per_station",
+      "plotted_tracts": 884,
+      "correlation_tracts": 884,
+      "zero_station_tracts": 0,
+      "censored_income_tracts": 10,
+      "all_values_in_range": true
+    },
+    {
+      "variable": "no_vehicle_share",
+      "metric": "stations_per_km2",
+      "plotted_tracts": 2231,
+      "correlation_tracts": 2231,
+      "zero_station_tracts": 1335,
+      "censored_income_tracts": 0,
+      "all_values_in_range": true
+    },
+    {
+      "variable": "no_vehicle_share",
+      "metric": "departures_per_station",
+      "plotted_tracts": 896,
+      "correlation_tracts": 896,
+      "zero_station_tracts": 0,
+      "censored_income_tracts": 0,
+      "all_values_in_range": true
+    }
+  ],
+  "daily": {
+    "weekend_days": 8,
+    "weekday_days": 22,
+    "categories": {
+      "casual": {
+        "departures": 1000651,
+        "weekend_daily_mean": 41896.625,
+        "weekday_daily_mean": 30249.0
+      },
+      "member": {
+        "departures": 4283747,
+        "weekend_daily_mean": 123307.25,
+        "weekday_daily_mean": 149876.77272727274
+      }
+    }
+  }
+}

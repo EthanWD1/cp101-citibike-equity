@@ -2,32 +2,45 @@
   "figures": [
     {
       "file": "01_station_density_map.png",
-      "caption": "Station coverage is shown for all five boroughs; zero means no station was observed in this month's trip records."
+      "caption": "Observed coverage varies across the five boroughs; no observed station within a tract does not establish a lack of nearby access.",
+      "population": "All NYC tracts shown; density comparisons use eligible residential tracts",
+      "note": "Positive classes: citywide quartiles \u00b7 Water removed for display only \u00b7 EPSG:32618"
     },
     {
       "file": "02_density_by_income.png",
-      "caption": "Boxes show tract density distributions, including zeros; citywide quartile thresholds are held fixed in every borough."
+      "caption": "Income groups show different coverage patterns across boroughs; a zero median means at least half of that group's tracts have no observed station.",
+      "population": "Eligible residential tracts with the relevant demographic estimate; zero-station tracts included",
+      "note": "Income: 2024 dollars \u00b7 Fixed citywide groups; labels rounded \u00b7 Intervals describe tracts, not uncertainty \u00b7 n = eligible tracts"
     },
     {
       "file": "03_density_by_vehicle_access.png",
-      "caption": "Boxes show tract density distributions, including zeros; citywide quartile thresholds are held fixed in every borough."
+      "caption": "Tracts with more households without a vehicle generally show greater station coverage citywide, while borough comparisons reveal substantial differences.",
+      "population": "Eligible residential tracts with the relevant demographic estimate; zero-station tracts included",
+      "note": "Groups: % of households without a vehicle \u00b7 Fixed citywide groups; labels rounded \u00b7 Intervals describe tracts, not uncertainty \u00b7 n = eligible tracts"
     },
     {
       "file": "04_usage_by_demographics.png",
-      "caption": "Median usage is compared only among tracts with observed stations; gaps denote empty groups, not zero usage."
+      "caption": "Usage differs among tracts with observed stations; empty groups, including every Staten Island group, have undefined usage rather than zero usage.",
+      "population": "Eligible residential tracts with a demographic estimate and at least one observed station",
+      "note": "Fixed citywide groups; labels rounded \u00b7 A tract's usage = departures \u00f7 observed stations"
     },
     {
       "file": "05_demographic_scatterplots.png",
-      "caption": "Each point is a tract; citywide associations can differ from within-borough patterns and do not identify individual riders."
+      "caption": "Citywide associations can obscure borough differences, and overlapping zero-density points represent many tracts without an observed station.",
+      "population": "Eligible residential tracts with complete values for each panel; every observation retained",
+      "note": "Spearman \u03c1: rank association, \u22121 decreasing / 0 no monotonic pattern / +1 increasing; not causation"
     },
     {
       "file": "06_daily_departures.png",
-      "caption": "Daily departures show the full month's observed activity by rider category, including stations in nonresidential NYC tracts."
+      "caption": "Casual departures averaged more on weekends than weekdays during this month; the chart does not establish why.",
+      "population": "All retained departures assigned to NYC stations, including nonresidential tracts",
+      "note": "All matched NYC station departures, including nonresidential tracts; k = 1,000"
     }
   ],
-  "positive_density_breaks_stations_per_km2": [
+  "positive_density_breaks": [
     8.216229030220243,
     12.052392105417002,
     17.18307594680539
-  ]
+  ],
+  "revision": "2026-11-03"
 }

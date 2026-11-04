@@ -5,10 +5,11 @@ from pathlib import Path
 from zipfile import ZipFile, ZIP_DEFLATED
 
 from .download_data import checksum
+from .config import SOURCES
 
 ARCHIVE = Path("Group_PAIR_TrackB_midterm.zip")
 DIRECTORIES = ["analysis", "data/raw", "data/processed", "docs", "notebooks", "tests", "visualizations"]
-ROOT_FILES = ["README.md", ".gitignore", "requirements.txt", "requirements-dev.txt", "Group_PAIR_midterm.pdf"]
+ROOT_FILES = ["README.md", ".gitignore", ".gitattributes", "requirements.txt", "requirements-dev.txt", "Group_PAIR_midterm.pdf"]
 
 
 def package():
@@ -21,7 +22,7 @@ def package():
     for path in files:
         if not path.is_file():
             raise FileNotFoundError(path)
-    required = [Path("notebooks/midterm_analysis.ipynb"), Path("data/raw/202509-citibike-tripdata.zip")]
+    required = [Path("notebooks/midterm_analysis.ipynb"), *[Path("data/raw") / name for name in SOURCES]]
     assert all(p in files for p in required)
     notebook = json.loads(required[0].read_text())
     assert all(cell.get("execution_count") is not None for cell in notebook["cells"] if cell["cell_type"] == "code"), "Execute the notebook before packaging"

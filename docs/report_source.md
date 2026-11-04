@@ -1,6 +1,6 @@
 # Group PAIR midterm report
 
-Timothy Phan and Ethan Deng · November 2, 2026 · Track B
+Timothy Phan and Ethan Deng · Revised November 3, 2026 · Track B
 
 
 
@@ -44,7 +44,7 @@ The citywide income–density correlation is nearly flat (ρ=0.05), but borough 
 
 
 
-Among tracts with stations, median September departures per observed station rise from 496 in the lowest income quartile to 4,068 in the highest. This conditional comparison describes activity where stations were observed, not demand in unserved tracts or trips made by residents. Daily variation is visible below; weather, weekends, and holidays have not been modeled.
+Among tracts with stations, median September departures per observed station rise from 496 in the lowest income quartile to 4,068 in the highest. This conditional comparison describes activity where stations were observed, not demand in unserved tracts or trips made by residents. Casual departures averaged 41,897/day on weekends versus 30,249 on weekdays this month; no causal explanation is established.
 
 
 
@@ -69,5 +69,7 @@ Feedback requested: (1) How should nearby stations across tract boundaries be re
 Repository: https://github.com/EthanWD1/cp101-citibike-equity
 
 The report embeds figures 01 and 06; figures 02–05 and complete comparison tables accompany the PDF. All six figures have titles, units, sources, and captions.
+
+Figure 01 subtracts 2024 Census Area Hydrography only from display geometry; original tracts, spatial joins, and TIGER ALAND denominators are unchanged. Figures 02–03 show medians, middle-50% intervals, zero-station percentages, and tract counts on a linear density scale. Figure 04 shows usage medians and contributing-tract counts, flags n<5, and distinguishes undefined usage. Figure 05 retains all observations and flags censored income. Figure 06 shades weekends and labels rider categories directly.
 
 Official source links and data-use terms are listed in README.md and data/raw/sources.json.
