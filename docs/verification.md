@@ -26,3 +26,7 @@ python -m analysis.package_submission
 ```
 
 See `verification.json` for counts and measured runtimes, and `data/processed/validation.json` for the individual numerical checks.
+
+## Markdown authoring update — November 4, 2026
+
+The report now compiles directly from `docs/report_source.md`; rebuilding never overwrites that source. All **16 tests passed**, including two new checks that Markdown edits appear in the PDF and that an overlong page preserves both the existing PDF and the user's edits. The compiled report remains three pages; all rendered pages were inspected and text/image bounds stay within the page. The computed notebook summary is unchanged. This was a report-only update, so trip processing and the previously verified notebook execution were not repeated.

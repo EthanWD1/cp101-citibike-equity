@@ -36,7 +36,7 @@ python -m analysis.pipeline
 
 The first command downloads the original trip ZIP (1,032,411,368 bytes), New York tract ZIP, three national ACS table files, and five small NYC county water ZIPs. It records URLs, UTC retrieval timestamps, sizes, and SHA-256 checksums in `data/raw/sources.json`. Rerunning verifies existing sources instead of downloading them again. A changed checksum is an error that must be investigated.
 
-The second command verifies inputs, processes all trips in chunks, regenerates processed data, makes all six figures, and builds the PDF and report source. **It does not need internet access.** The Gradescope ZIP already includes all raw inputs, so skip acquisition when running that copy. Allow about 5 GB free disk space for inputs, the SQLite deduplication index, outputs, and packaging. Download time depends on the connection; analysis timing for the tested machine is recorded in `data/processed/validation.json`. Chunk size defaults to 200,000; lower it with `--chunk-size 50000` if necessary.
+The second command verifies inputs, processes all trips in chunks, regenerates processed data, makes all six figures, and builds the PDF from the editable Markdown report. **It does not need internet access.** The Gradescope ZIP already includes all raw inputs, so skip acquisition when running that copy. Allow about 5 GB free disk space for inputs, the SQLite deduplication index, outputs, and packaging. Download time depends on the connection; analysis timing for the tested machine is recorded in `data/processed/validation.json`. Chunk size defaults to 200,000; lower it with `--chunk-size 50000` if necessary.
 
 For an interactive notebook, select this environment's Python kernel and run **Kernel → Restart & Run All**. The notebook works from the root or `notebooks/`, calls the same reusable functions, and regenerates the analysis rather than depending on stale outputs. To execute it automatically in a new kernel with external network connections disabled:
 
@@ -44,9 +44,10 @@ For an interactive notebook, select this environment's Python kernel and run **K
 python -m analysis.execute_notebook
 ```
 
-For numerical and spatial edge-case tests:
+For numerical, spatial, and Markdown-to-PDF checks (including PDF inspection dependencies):
 
 ```bash
+python -m pip install -r requirements-dev.txt
 python -m unittest discover -s tests -v
 ```
 
@@ -61,6 +62,24 @@ python -m analysis.report
 The full pipeline and notebook perform the same figure checks automatically. Run the full notebook after finalizing figure changes so its embedded images remain current.
 
 The repository uses relative project paths. The original proposal is preserved. This is a midterm analysis repository; animated maps and GitHub Pages remain final-project work.
+
+## Editing the write-up
+
+Edit **`docs/report_source.md`**, save it, then run from the project root:
+
+```bash
+.venv/bin/python -m analysis.report
+```
+
+This compiles `Group_PAIR_midterm.pdf` without rerunning trip processing or overwriting your Markdown. The pipeline also reads this same Markdown file and preserves your edits. Keep the three `#` page titles and the `<!-- table: ... -->` markers; the latter insert the current cleaning and borough tables. Image paths are relative to the Markdown file. You can use paragraphs, `##` headings, bold, italics, links, and simple bullet/numbered lists. The short editing comment at the top is omitted from the PDF.
+
+The compiler checks the three-page limit. If a page is too long, it identifies that page and keeps the previous PDF so you can shorten the text and try again. Tables load the latest processed data, but numbers you write in the narrative remain editable text: check them against the results if you change the data or analysis. `docs/early_results.md` remains a separately generated notebook summary; editing the report does not rewrite notebook commentary.
+
+After checking the PDF, refresh your submission archive:
+
+```bash
+.venv/bin/python -m analysis.package_submission
+```
 
 ## Source data
 
@@ -98,7 +117,7 @@ The November 3 revision preserves every analytical result and improves the six s
 
 ## Organization and submission
 
-`analysis/` contains reusable acquisition, cleaning, spatial, statistical, plotting, report, and verification code. `data/raw/` preserves original inputs; `data/processed/` contains regenerated aggregate tables and the projected tract GeoPackage. `notebooks/` contains the executed notebook; `visualizations/` contains all six PNGs and captions; `docs/` contains the proposal, methods, and generated report text. The report PDF sits at the root as required.
+`analysis/` contains reusable acquisition, cleaning, spatial, statistical, plotting, report, and verification code. `data/raw/` preserves original inputs; `data/processed/` contains regenerated aggregate tables and the projected tract GeoPackage. `notebooks/` contains the executed notebook; `visualizations/` contains all six PNGs and captions; `docs/` contains the proposal, methods, and editable report text. The report PDF sits at the root as required.
 
 `python -m analysis.package_submission` builds **Group_PAIR_TrackB_midterm.zip**, including raw data and excluding credentials, environments, caches, Git metadata, and the ZIP itself. Files larger than 98 MB are excluded from GitHub. The submission ZIP is a local artifact and is not committed. Upload that ZIP to Gradescope for the group; repository creation does not submit to Gradescope.
 

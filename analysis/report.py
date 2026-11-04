@@ -1,5 +1,7 @@
-"""Generate a three-page report and editable Markdown narrative from computed tables."""
+"""Compile the editable Markdown report, preserving its source and existing analysis."""
 import json
+import re
+import tempfile
 from pathlib import Path
 from xml.sax.saxutils import escape
 
@@ -79,7 +81,7 @@ class Report:
     def footer(self):
         self.pdf.setFont("Helvetica", 8)
         self.pdf.setFillColor(colors.HexColor("#58646a"))
-        self.pdf.drawString(self.margin, 23, "Group PAIR · CYPLAN 101 · Track B · Revised November 3, 2026")
+        self.pdf.drawString(self.margin, 23, "Group PAIR · CYPLAN 101 · Track B · Midterm report")
         self.pdf.drawRightString(574, 23, f"{self.page} / 3")
 
     def finish(self):
@@ -89,135 +91,122 @@ class Report:
         self.pdf.save()
 
 
-def build_report():
-    validation = json.loads((PROCESSED / "validation.json").read_text())
-    counts = validation["counts"]
-    boroughs = pd.read_csv(PROCESSED / "borough_summary.csv").set_index("scope")
-    comparisons = pd.read_csv(PROCESSED / "quartile_comparisons.csv")
-    correlations = pd.read_csv(PROCESSED / "spearman_correlations.csv")
-    ledger = pd.read_csv(PROCESSED / "cleaning_ledger.csv")
-    missingness = pd.read_csv(PROCESSED / "missingness_by_date_category.csv")
-    tracts = pd.read_csv(PROCESSED / "tract_metrics.csv")
-    figure_data = json.loads((FIGURES / "figure_data.json").read_text())
-    casual = figure_data["daily"]["categories"]["casual"]
-    def rho(scope, variable, metric="stations_per_km2"):
-        value = correlations.loc[correlations.scope.eq(scope) & correlations.variable.eq(variable) & correlations.metric.eq(metric), "spearman_rho"].iloc[0]
-        return number(value, 2)
-    def quartile(variable, quartile, field):
-        return comparisons.loc[comparisons.scope.eq("NYC") & comparisons.variable.eq(variable) & comparisons.quartile.eq(quartile), field].iloc[0]
-    missing_income = int((tracts.eligible & tracts.income.isna()).sum())
-    zero_pct = boroughs.loc["NYC", "zero_station_pct"]
-    question = ("How did observed Citi Bike station density and usage vary with median household income and the share of households without a vehicle "
-                "across New York City census tracts in September 2025, citywide and within each borough? "
-                "The geography, month, demographic variables, and descriptive approach remain as proposed. The audience is NYC transportation planners "
-                "and community groups assessing where observed coverage merits closer review.")
-    status = ("Completed: full-month acquisition, documented cleaning, point-to-tract spatial join, citywide/borough comparisons, one map and five charts, "
-              "and a reproducible Python workflow. Static figures are the midterm milestone. Animated maps, the webpage, and operational/boundary "
-              "sensitivity checks remain final-project work; no historical station inventory has been replaced by a current feed.")
-    data_text = (f"All six original trip CSVs contain {counts['raw_rows']:,} rows. ACS 2020–2024 five-year tables B19013 (income), B08201 "
-                 "(households/vehicle availability), and B01003 (population) supply tract context; 2024 TIGER/Line supplies boundaries and land area. "
-                 "ACS data were obtained from official table-based text files without an API key. Raw files, download dates, URLs, and SHA-256 checksums are retained.")
-    cleaning = (f"The sequential trip filters remove {counts['outside_september']:,} starts outside September; missing ride IDs, duplicate IDs, "
-                f"and invalid start timestamps each affect {counts['missing_ride_id']:,}, {counts['duplicate_ride_id']:,}, and {counts['invalid_start_time']:,} rows, respectively. "
-                f"Of {counts['retained_september']:,} retained starts, {counts['missing_id_and_coordinates']:,} lack both a start station ID and usable coordinates "
-                f"and cannot enter station usage. Missing destination IDs affect {int(missingness.missing_end_id.sum()):,} retained trips but do not remove their valid departures.")
-    geography = (f"The spatial join assigns {counts['observed_nyc_stations']:,} of {counts['observed_station_ids_with_coordinates']:,} located station IDs to NYC; "
-                 f"{counts['unmatched_station_locations']:,} station locations outside/unmatched to NYC remain audited. There are {counts['boundary_tie_stations']:,} boundary ties. "
-                 f"Residential comparisons retain {counts['eligible_tracts']:,} of {counts['all_nyc_tracts']:,} NYC tracts; {counts['all_nyc_tracts']-counts['eligible_tracts']:,} fail the positive-household/population/land-area rule. "
-                 f"Another {missing_income:,} eligible tracts lack income and remain mapped but are excluded only from income comparisons. "
-                 f"The {counts['income_censored_eligible']:,} upper-bound income estimates are flagged; {counts['income_imprecise_eligible']:,} eligible tracts have income MOEs above half their estimate.")
-    methods = ("1. Parse local timestamps, keep September starts, and deduplicate ride IDs across files using a disk-backed index. "
-               "2. Infer station locations from both endpoints by modal coordinate pair, preserving string IDs. "
-               "3. Project to <b>EPSG:32618 (meters)</b>, spatially intersect stations with tracts, and merge ACS by eleven-digit GEOID. "
-               "4. Aggregate starts by their station's tract; calculate stations/land km², stations/10,000 residents, and departures/observed station. "
-               "5. Compare unweighted tracts using fixed citywide income and no-vehicle-share quartiles within every borough; report descriptive Spearman correlations. "
-               "Coverage includes zeros; usage excludes zero-station tracts. Land area is TIGER ALAND/1,000,000, excluding water from the denominator.")
-    coverage = (f"Observed coverage is uneven: {counts['zero_station_eligible_tracts']:,} of {counts['eligible_tracts']:,} eligible tracts ({zero_pct:.1f}%) have no observed station. "
-                f"The share is {boroughs.loc['Manhattan','zero_station_pct']:.1f}% in Manhattan, {boroughs.loc['Queens','zero_station_pct']:.1f}% in Queens, and 100% in Staten Island. "
-                "These are observations from trip records, not a claim that residents cannot reach stations in adjacent tracts.")
-    associations = (f"The citywide income–density correlation is nearly flat (ρ={rho('NYC','income')}), but borough patterns differ: "
-                    f"Bronx {rho('Bronx','income')}, Brooklyn {rho('Brooklyn','income')}, Manhattan {rho('Manhattan','income')}, and Queens {rho('Queens','income')}. "
-                    f"No-vehicle household share is more positively associated with density citywide (ρ={rho('NYC','no_vehicle_share')}). "
-                    f"Its highest quartile has {quartile('no_vehicle_share','Q4','zero_station_pct'):.1f}% zero-station tracts, versus "
-                    f"{quartile('no_vehicle_share','Q1','zero_station_pct'):.1f}% in its lowest quartile. The borough differences caution against a single citywide income story.")
-    usage = (f"Among tracts with stations, median September departures per observed station rise from "
-             f"{quartile('income','Q1','departures_per_station_median'):,.0f} in the lowest income quartile to "
-             f"{quartile('income','Q4','departures_per_station_median'):,.0f} in the highest. This conditional comparison describes activity where stations were observed, "
-             f"not demand in unserved tracts or trips made by residents. Casual departures averaged {casual['weekend_daily_mean']:,.0f}/day on weekends "
-             f"versus {casual['weekday_daily_mean']:,.0f} on weekdays this month; no causal explanation is established.")
-    limitations = ("ACS estimates cover five years and have sampling uncertainty; they do not describe individual riders. Tract boundaries, jobs, transit, "
-                   "land use, and partial-month operation can affect the patterns. The one flagged station location spans 291 m; its modal pair accounts for "
-                   "383 of 389 endpoint observations, and both locations fall in the same tract. We retain the modal location with no manual override. "
-                   "Low observed density is not a direct walking-access measure, and low usage does not establish low or unmet demand.")
-    plan = ("<b>Ethan · Nov 16:</b> review land/population normalization and boundary effects; repeat usage comparisons for stations observed in both first and last weeks. "
-            "<b>Tim · Dec 6:</b> build the two interactive maps, daily animations, fixed scales, borough filters, and GitHub Pages draft. "
-            "<b>Both · Dec 15:</b> review interpretation, rerun the workflow, and finalize. Main risks are uncertain exposure, ACS precision, and map performance; "
-            "use sensitivity checks and aggregated layers rather than adding causal claims or rendering individual trips.")
-    feedback = ("We would appreciate feedback on three questions: "
-                "(1) How should we account for stations just outside a tract when discussing residents' access? "
-                "(2) Are comparisons by borough enough at this stage, or should we do more to address uncertainty in the ACS estimates and differences in land use? "
-                "(3) Would comparing stations observed in both the first and last weeks help us account for stations that may have operated for only part of September?")
-    findings_md = ("# Early results\n\n" + coverage + "\n\n" + associations + "\n\n" + usage + "\n\n" + limitations + "\n\n"
-                   + f"All {len(validation['checks'])} numerical/spatial reconciliation checks passed. NYC station departures total {counts['nyc_station_departures']:,}; "
-                   + f"{counts['nonresidential_nyc_departures']:,} occur in tracts excluded from residential comparisons and remain included in daily activity.\n")
-    Path("docs/early_results.md").write_text(findings_md)
-    source = ["# Group PAIR midterm report", "Timothy Phan and Ethan Deng · Revised November 3, 2026 · Track B", "", "## Research question and status", question, "", status,
-              "", "## Data and cleaning", data_text, "", cleaning, "", geography, "", "## Methods", methods.replace("<b>", "").replace("</b>", ""),
-              "", "## Early results", coverage, "", associations, "", usage, "", "## Limitations", limitations, "", "## Plan to finish", plan.replace("<b>", "").replace("</b>", ""),
-              "", feedback, "", "## Reproducibility and figures", f"Repository: {REPO}",
-              "The report embeds figures 01 and 06; figures 02–05 and complete comparison tables accompany the PDF. All six figures have titles, units, sources, and captions.",
-              "Figure 01 subtracts 2024 Census Area Hydrography only from display geometry; original tracts, spatial joins, and TIGER ALAND denominators are unchanged. Figures 02–03 show medians, middle-50% intervals, zero-station percentages, and tract counts on a linear density scale. Figure 04 shows usage medians and contributing-tract counts, flags n<5, and distinguishes undefined usage. Figure 05 retains all observations and flags censored income. Figure 06 shades weekends and labels rider categories directly.",
-              "Official source links and data-use terms are listed in README.md and data/raw/sources.json."]
-    Path("docs/report_source.md").write_text("\n\n".join(source) + "\n")
-    report = Report("Group_PAIR_midterm.pdf")
-    report.new_page("Citi Bike coverage and neighborhood mobility")
-    report.para("<b>Timothy Phan and Ethan Deng · Group PAIR · Midterm progress report</b>", size=9.5)
-    report.para("Research question and current state", size=11, bold=True, gap=4)
-    report.para(question)
-    report.para(status)
-    report.para("Data and documented cleaning", size=11, bold=True, gap=4)
-    report.para(data_text)
-    report.para(cleaning)
-    rows = [["Stage", "Before", "Affected / excluded", "After"]]
-    for key, label in [("missing_ride_id", "Missing ride ID"), ("duplicate_ride_id", "Duplicate ride ID"),
-                       ("invalid_start_time", "Invalid start timestamp"), ("outside_september", "Start outside September")]:
-        row = ledger.loc[ledger.stage.eq("trips") & ledger.step.eq(key)].iloc[0]
-        rows.append([label, f"{row.before:,}", f"{row.affected:,}", f"{row.after:,}"])
-    rows.append(["Eligible residential tracts", f"{counts['all_nyc_tracts']:,}", f"{counts['all_nyc_tracts']-counts['eligible_tracts']:,}", f"{counts['eligible_tracts']:,}"])
-    report.table(rows, [212, 96, 132, 96], font=8.2)
-    report.para(geography, size=9, leading=11.6)
-    report.para("Methods and validation", size=11, bold=True, gap=4)
-    report.para(methods, size=9, leading=11.6)
-    report.para(f"All {len(validation['checks'])} reconciliation checks pass. The {counts['nyc_station_departures']:,} assigned NYC departures reconcile across stations, tracts, boroughs, and dates; "
-                f"{counts['nonresidential_nyc_departures']:,} are in ineligible residential-comparison tracts. The notebook regenerates outputs from raw inputs using relative paths.", size=8.8, leading=11.2)
-    report.new_page("Early results: coverage across all five boroughs")
-    report.para(coverage, size=10, leading=13)
-    report.picture("01_station_density_map.png", width=490)
-    rows = [["Borough", "Eligible tracts", "Zero stations (%)", "Median stations / km²", "Sept. departures*"]]
-    for scope in SCOPES[1:]:
-        row = boroughs.loc[scope]
-        rows.append([scope, f"{int(row.eligible_tracts):,}", number(row.zero_station_pct), number(row.median_stations_per_km2,2), f"{int(row.departures_all_tracts):,}"])
-    report.table(rows, [102, 83, 111, 124, 116], font=8.1)
-    report.para("*Departures include all assigned NYC stations, including tracts outside the residential comparison. Density medians and zero percentages use eligible tracts only. Figure 01 removes 2024 Census water polygons for display; original tracts, station assignments, and ALAND denominators remain unchanged. Full-size PNGs accompany this report.", size=8, leading=10.2)
-    report.new_page("Early results, limitations, and plan to finish")
-    report.para(associations, size=9.4, leading=12.2)
-    report.para(usage, size=9.4, leading=12.2)
-    report.picture("06_daily_departures.png", width=510)
-    report.para("Interpretation and remaining risks", size=10.5, bold=True, gap=4)
-    report.para(limitations, size=9, leading=11.6)
-    report.para("Plan to finish and requested feedback", size=10.5, bold=True, gap=4)
-    report.para(plan, size=9, leading=11.6)
-    report.para(feedback, size=8.8, leading=11.2)
-    report.para("Companion figures: 02–03 density medians and middle-50% intervals with zero-station shares and n; 04 usage heatmaps with n (groups below 5 flagged); "
-                "05 linear scatterplots with censored incomes marked. Full citywide/borough tables accompany the notebook.", size=8, leading=10.2)
-    report.para(f'<b>Sources and code:</b> <link href="https://citibikenyc.com/system-data" color="#214c64">Citi Bike trip histories</link>; '
-                '<link href="https://www.census.gov/programs-surveys/acs/data/summary-file.2024.html" color="#214c64">ACS 2024 five-year Summary File</link>; '
-                '<link href="https://www2.census.gov/geo/tiger/TIGER2024/TRACT/tl_2024_36_tract.zip" color="#214c64">TIGER/Line 2024 tracts</link>; '
-                '<link href="https://www2.census.gov/geo/tiger/TIGER2024/AREAWATER/" color="#214c64">water polygons</link>. '
-                f'<link href="{REPO}" color="#214c64">github.com/EthanWD1/cp101-citibike-equity</link>. Full provenance, attribution, and computational-assistance notes are in the README.', size=7.7, leading=10)
-    report.finish()
-    print("Generated three-page report and Markdown sources.", flush=True)
+def inline_markdown(text):
+    """Translate the report's small Markdown subset into safe ReportLab markup."""
+    pattern = r'(`[^`]+`|\*\*[^*]+\*\*|\*[^*]+\*|\[[^\]]+\]\([^\s)]+\))'
+    pieces = re.split(pattern, text)
+    result = []
+    for piece in pieces:
+        if piece.startswith('**') and piece.endswith('**'):
+            result.append('<b>' + escape(piece[2:-2]) + '</b>')
+        elif piece.startswith('*') and piece.endswith('*'):
+            result.append('<i>' + escape(piece[1:-1]) + '</i>')
+        elif piece.startswith('`') and piece.endswith('`'):
+            result.append('<font name="Courier">' + escape(piece[1:-1]) + '</font>')
+        elif re.fullmatch(r'\[[^\]]+\]\([^\s)]+\)', piece):
+            label, url = re.fullmatch(r'\[([^\]]+)\]\(([^\s)]+)\)', piece).groups()
+            if not url.startswith(('https://', 'http://')):
+                raise ValueError('Report links must use https:// or http://')
+            result.append('<link href="' + escape(url, {'"':'&quot;'}) + '" color="#214c64">' + escape(label) + '</link>')
+        else:
+            result.append(escape(piece))
+    return ''.join(result)
 
 
-if __name__ == "__main__":
+def markdown_blocks(text):
+    """Yield headings, paragraphs, list items, images, and generated-table markers."""
+    # Keep table markers but omit explanatory author comments.
+    text = re.sub(r'<!--(.*?)-->', lambda m: m.group(0) if re.fullmatch(r'\s*table: \w+\s*',m.group(1)) else '',text,flags=re.S)
+    paragraph = []
+    for line in [*text.splitlines(), '']:
+        stripped = line.strip()
+        special = bool(re.match(r'^(#{1,2} |!\[|<!-- table: |[-*] |\d+\. )',stripped))
+        if not stripped or special:
+            if paragraph:
+                yield 'paragraph', ' '.join(paragraph)
+                paragraph = []
+        if not stripped:
+            continue
+        if stripped.startswith('# '):
+            yield 'page', stripped[2:]
+        elif stripped.startswith('## '):
+            yield 'heading', stripped[3:]
+        elif stripped.startswith('<!-- table: '):
+            match = re.fullmatch(r'<!-- table: (\w+) -->',stripped)
+            if not match:
+                raise ValueError('Use <!-- table: cleaning --> or <!-- table: boroughs -->')
+            yield 'table', match.group(1)
+        elif stripped.startswith('!['):
+            match = re.fullmatch(r'!\[[^\]]*\]\(([^)]+)\)',stripped)
+            if not match:
+                raise ValueError('Put each Markdown image on its own line: ![caption](relative/path.png)')
+            yield 'image', match.group(1)
+        elif re.match(r'^[-*] ',stripped):
+            yield 'item', '• ' + stripped[2:]
+        elif re.match(r'^\d+\. ',stripped):
+            yield 'item', stripped
+        elif stripped.startswith(('```','###','|')):
+            raise ValueError('Supported report Markdown: # page titles, ## headings, paragraphs, lists, bold, italics, links, and images.')
+        else:
+            paragraph.append(stripped)
+
+
+def generated_table(report, name):
+    """Keep numerical tables connected to processed outputs, independently of prose."""
+    if name == 'cleaning':
+        counts = json.loads((PROCESSED / 'validation.json').read_text())['counts']
+        ledger = pd.read_csv(PROCESSED / 'cleaning_ledger.csv')
+        rows = [['Stage','Before','Affected / excluded','After']]
+        for key, label in [('missing_ride_id','Missing ride ID'),('duplicate_ride_id','Duplicate ride ID'),
+                           ('invalid_start_time','Invalid start timestamp'),('outside_september','Start outside September')]:
+            row = ledger.loc[ledger.stage.eq('trips') & ledger.step.eq(key)].iloc[0]
+            rows.append([label,f'{row.before:,}',f'{row.affected:,}',f'{row.after:,}'])
+        rows.append(['Eligible residential tracts',f"{counts['all_nyc_tracts']:,}",
+                     f"{counts['all_nyc_tracts']-counts['eligible_tracts']:,}",f"{counts['eligible_tracts']:,}"])
+        report.table(rows,[212,96,132,96])
+    elif name == 'boroughs':
+        boroughs = pd.read_csv(PROCESSED / 'borough_summary.csv').set_index('scope')
+        rows = [['Borough','Eligible tracts','Zero stations (%)','Median stations / km²','Sept. departures*']]
+        for scope in SCOPES[1:]:
+            row = boroughs.loc[scope]
+            rows.append([scope,f'{int(row.eligible_tracts):,}',number(row.zero_station_pct),
+                         number(row.median_stations_per_km2,2),f'{int(row.departures_all_tracts):,}'])
+        report.table(rows,[102,83,111,124,116],font=8.1)
+    else:
+        raise ValueError(f'Unknown generated table: {name}')
+
+
+def build_report(source=Path('docs/report_source.md'), output=Path('Group_PAIR_midterm.pdf')):
+    """Render Markdown without rewriting it; keep the previous PDF if rendering fails."""
+    source, output = Path(source), Path(output)
+    if not source.is_file():
+        raise FileNotFoundError(f'Edit {source} to provide the report text before compiling.')
+    blocks = list(markdown_blocks(source.read_text()))
+    if sum(kind == 'page' for kind,_ in blocks) != 3 or not blocks or blocks[0][0] != 'page':
+        raise ValueError('Keep exactly three # page titles in the Markdown report, starting with a page title.')
+    with tempfile.TemporaryDirectory(dir=output.parent) as temporary:
+        candidate = Path(temporary) / output.name
+        report = Report(candidate)
+        for kind, text in blocks:
+            if kind == 'page':
+                report.new_page(text)
+            elif kind == 'heading':
+                report.para(inline_markdown(text),size=10.5,leading=13,gap=4,bold=True)
+            elif kind == 'table':
+                generated_table(report,text)
+            elif kind == 'image':
+                path = (source.parent / text).resolve()
+                if not path.is_file():
+                    raise FileNotFoundError(f'Missing report image: {text}')
+                report.picture(path,width=490 if path.name.startswith('01_') else 510)
+            else:
+                report.para(inline_markdown(text),size=9.2,leading=11.8,gap=6)
+            if report.y < 38:
+                raise ValueError(f'Report page {report.page} is too long. Shorten the Markdown text on that page; the previous PDF was kept.')
+        report.finish()
+        candidate.replace(output)
+    print(f'Compiled {output} from {source}; Markdown source preserved.',flush=True)
+
+
+if __name__ == '__main__':
     build_report()

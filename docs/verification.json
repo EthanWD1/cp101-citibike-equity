@@ -35,5 +35,15 @@
     "source_trip_rows": 5287447,
     "source_csv_files": 6,
     "scope": "The final ZIP adds this verification record and documentation/whitespace cleanup to the successfully rerun package; analytical logic and inputs are unchanged."
+  },
+  "markdown_authoring_update": {
+    "date": "2026-11-04",
+    "unit_tests_passed": 16,
+    "markdown_preserved_on_build": true,
+    "previous_pdf_preserved_on_overflow": true,
+    "report_pages": 3,
+    "report_render_inspected": true,
+    "computed_notebook_summary_unchanged": true,
+    "full_notebook_rerun": false
   }
 }

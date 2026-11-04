@@ -92,6 +92,8 @@ def run(make_report=True, chunk_size=200_000):
     create_figures(tracts, stations, daily, comparisons, correlations)
     from .verify_figures import verify
     verify()
+    from .findings import write_findings
+    write_findings()
     if make_report:
         from .report import build_report
         build_report()
