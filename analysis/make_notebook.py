@@ -27,7 +27,10 @@ def build():
         md("## Early interpretation and remaining work\nThe report narrative below is generated from the same summary tables as the figures. It describes observed coverage and activity, not dock capacity, reliable availability, rider residence, or causal effects. A tract can have no observed station yet be close to a station across its boundary."),
         code("display(Markdown(Path('docs/early_results.md').read_text()))\ndisplay(pd.Series(validation['checks'], name='passed'))\nfigure_checks = json.loads(Path('visualizations/verification.json').read_text())\nassert all(figure_checks.values())\ndisplay(pd.Series(figure_checks, name='figure_check_passed'))"),
         md("## Plan to finish\n- **Ethan, November 16:** review coordinate flags and tract-boundary sensitivity; compare land/population normalization and usage among stations observed in both first and last weeks.\n- **Tim, December 6:** build the two interactive maps, daily animation, borough filters, and GitHub Pages draft with fixed scales.\n- **Both, December 15:** review interpretations, rerun all code, and finalize.\n\n"
-           "Feedback requested: How should near-boundary stations be represented without overstating walking access? Are these descriptive tract comparisons sufficient given ACS uncertainty and correlated land use? Is first/last-week presence a useful sensitivity check for partial-month exposure?"),
+           "We would appreciate feedback on three questions:\n\n"
+           "1. How should we account for stations just outside a tract when discussing residents' access?\n"
+           "2. Are comparisons by borough enough at this stage, or should we do more to address uncertainty in the ACS estimates and differences in land use?\n"
+           "3. Would comparing stations observed in both the first and last weeks help us account for stations that may have operated for only part of September?"),
     ]
     for index, cell in enumerate(cells):
         cell.id = f"pair-{index:02d}"

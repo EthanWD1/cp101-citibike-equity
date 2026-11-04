@@ -60,7 +60,7 @@ Ethan · Nov 16: review land/population normalization and boundary effects; repe
 
 
 
-Feedback requested: (1) How should nearby stations across tract boundaries be represented? (2) Are these descriptive comparisons sufficient given ACS uncertainty and correlated land use? (3) Is first/last-week station presence a useful check for partial-month exposure?
+We would appreciate feedback on three questions: (1) How should we account for stations just outside a tract when discussing residents' access? (2) Are comparisons by borough enough at this stage, or should we do more to address uncertainty in the ACS estimates and differences in land use? (3) Would comparing stations observed in both the first and last weeks help us account for stations that may have operated for only part of September?
 
 
 

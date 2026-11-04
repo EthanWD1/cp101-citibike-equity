@@ -153,9 +153,10 @@ def build_report():
             "<b>Tim · Dec 6:</b> build the two interactive maps, daily animations, fixed scales, borough filters, and GitHub Pages draft. "
             "<b>Both · Dec 15:</b> review interpretation, rerun the workflow, and finalize. Main risks are uncertain exposure, ACS precision, and map performance; "
             "use sensitivity checks and aggregated layers rather than adding causal claims or rendering individual trips.")
-    feedback = ("Feedback requested: (1) How should nearby stations across tract boundaries be represented? "
-                "(2) Are these descriptive comparisons sufficient given ACS uncertainty and correlated land use? "
-                "(3) Is first/last-week station presence a useful check for partial-month exposure?")
+    feedback = ("We would appreciate feedback on three questions: "
+                "(1) How should we account for stations just outside a tract when discussing residents' access? "
+                "(2) Are comparisons by borough enough at this stage, or should we do more to address uncertainty in the ACS estimates and differences in land use? "
+                "(3) Would comparing stations observed in both the first and last weeks help us account for stations that may have operated for only part of September?")
     findings_md = ("# Early results\n\n" + coverage + "\n\n" + associations + "\n\n" + usage + "\n\n" + limitations + "\n\n"
                    + f"All {len(validation['checks'])} numerical/spatial reconciliation checks passed. NYC station departures total {counts['nyc_station_departures']:,}; "
                    + f"{counts['nonresidential_nyc_departures']:,} occur in tracts excluded from residential comparisons and remain included in daily activity.\n")
