@@ -11,17 +11,17 @@ Tables and images load existing analysis outputs; prose and numbers in prose are
 
 How did observed Citi Bike station density and usage vary with median household income and the share of households without a vehicle across New York City census tracts in September 2025, citywide and within each borough? The geography, month, demographic variables, and descriptive approach remain as proposed. The audience is NYC transportation planners and community groups assessing where observed coverage merits closer review.
 
-Completed: full-month acquisition, documented cleaning, point-to-tract spatial join, citywide/borough comparisons, one map and five charts, and a reproducible Python workflow. Static figures are the midterm milestone. Animated maps, the webpage, and operational/boundary sensitivity checks remain final-project work; no historical station inventory has been replaced by a current feed.
+So far, we have completed full-month acquisition, documented cleaning, point-to-tract spatial join, citywide/borough comparisons, one map and five charts, and a reproducible Python workflow. Static figures are the midterm milestone. Animated maps, the webpage, and operational/boundary sensitivity checks remain final-project work; no historical station inventory has been replaced by a current feed.
 
 ## Data and documented cleaning
 
-All six original trip CSVs contain 5,287,447 rows. ACS 2020–2024 five-year tables B19013 (income), B08201 (households/vehicle availability), and B01003 (population) supply tract context; 2024 TIGER/Line supplies boundaries and land area. ACS data were obtained from official table-based text files without an API key. Raw files, download dates, URLs, and SHA-256 checksums are retained.
+All six original trip CSVs contain 5,287,447 rows. We have additionally utilized ACS 2020–2024 five-year tables B19013 for income, B08201 for households and vehicle availability, and B01003 for population to contextualize each tract, as well as 2024 TIGER/Line data for boundaries and land area. ACS data were obtained from official table-based text files without an API key. Raw files, download dates, URLs, and SHA-256 checksums are retained.
 
-The sequential trip filters remove 931 starts outside September; missing ride IDs, duplicate IDs, and invalid start timestamps each affect 0, 0, and 0 rows, respectively. Of 5,286,516 retained starts, 2,118 lack both a start station ID and usable coordinates and cannot enter station usage. Missing destination IDs affect 12,865 retained trips but do not remove their valid departures.
+The sequential trip filters remove 931 starts outside September; missing ride IDs, duplicate IDs, and invalid start timestamps; each affect 0, 0, and 0 rows, respectively. Of 5,286,516 retained starts, 2,118 lack both a start station ID and usable coordinates and cannot enter station usage. Missing destination IDs affect 12,865 retained trips but do not remove their valid departures.
 
 <!-- table: cleaning -->
 
-The spatial join assigns 2,212 of 2,269 located station IDs to NYC; 57 station locations outside/unmatched to NYC remain audited. There are 0 boundary ties. Residential comparisons retain 2,231 of 2,327 NYC tracts; 96 fail the positive-household/population/land-area rule. Another 32 eligible tracts lack income and remain mapped but are excluded only from income comparisons. The 13 upper-bound income estimates are flagged; 272 eligible tracts have income MOEs above half their estimate.
+The spatial join assigns 2,212 of 2,269 located station IDs to NYC with 57 station locations outside/unmatched to NYC remain audited. There are 0 boundary ties. Residential comparisons retain 2,231 of 2,327 NYC tracts; 96 fail the positive-household/population/land-area rule. Another 32 eligible tracts lack income data and remain mapped but are excluded only from income comparisons. The 13 upper-bound income estimates are flagged; 272 eligible tracts have income MOEs above half their estimate.
 
 ## Methods and validation
 
