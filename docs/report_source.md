@@ -6,6 +6,7 @@ Tables and images load existing analysis outputs; prose and numbers in prose are
 # Citi Bike coverage and neighborhood mobility
 
 **Timothy Phan and Ethan Deng · Group PAIR · Midterm progress report**
+https://github.com/EthanWD1/cp101-citibike-equity
 
 ## Research question and current state
 
